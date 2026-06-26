@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Atmos Dental &amp; Aesthetic Clinic - Transforming Smiles, Elevating Lives. Dr. Mohammed Farooq Mustafa, Dental Surgeon. Services: Aligners, Implants, Kids Dentistry, Crowns, Dentures, Smile Designing. Anna Nagar, Chennai." />
+  <meta property="og:title" content="Atmos Dental &amp; Aesthetic Clinic - Transforming Smiles Elevating Lives" />
+  <meta property="og:description" content="Premium dental &amp; aesthetic clinic in Chennai. Advanced treatments by Dr. Mohammed Farooq Mustafa, BDS - Dental Surgeon." />
+  <meta property="og:type" content="website" />
+  <title>Atmos Dental &amp; Aesthetic Clinic | Transforming Smiles Elevating Lives</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ===== HEADER / NAV ===== -->
+<header class="site-header" id="site-header" role="banner">
+  <div class="container header-inner">
+    <a href="#home" class="logo" aria-label="Atmos Dental &amp; Aesthetic Clinic home">
+      <svg class="logo-svg" width="200" height="52" viewBox="0 0 200 52" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="toothLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00C9A7"/>
+            <stop offset="100%" stop-color="#0077CC"/>
+          </linearGradient>
+        </defs>
+        <!-- Tooth outline shape -->
+        <path d="M6 5 C2 5 0 10 0 18 C0 26 2 33 6 38 L8 44 C9 47 11 48 13 47 C15 46 16 44 17 41 C17 41 18 44 19 47 C20 50 22 51 24 50 C26 49 27 46 28 43 L30 37 C34 32 36 25 36 18 C36 10 34 5 30 5 Z" fill="none" stroke="url(#toothLogoGrad)" stroke-width="2.8" stroke-linejoin="round"/>
+        <path d="M9 8 C6 11 4 14 4 18 C4 23 6 29 9 34" stroke="#0077CC" stroke-width="1.2" fill="none" opacity="0.45" stroke-linecap="round"/>
+        <!-- ATMOS text -->
+        <text x="44" y="24" font-family="Arial Black, Helvetica Neue, sans-serif" font-weight="900" font-size="21" fill="white" letter-spacing="2.5">ATMOS</text>
+        <!-- DENTAL & AESTHETIC CLINIC text -->
+        <text x="45" y="38" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="9" fill="#00C9A7" letter-spacing="1.8">DENTAL &amp; AESTHETIC CLINIC</text>
+        <!-- Tagline -->
+        <text x="45" y="49" font-family="Georgia, serif" font-style="italic" font-size="7.5" fill="rgba(255,255,255,0.55)" letter-spacing="0.5">Transforming Smiles Elevating Lives</text>
+      </svg>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <ul class="nav-list" role="list">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#gallery" class="nav-link">Gallery</a></li>
+        <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="https://wa.me/919025408659" class="btn btn-primary btn-sm header-cta" target="_blank" rel="noopener" aria-label="Book appointment via WhatsApp">Book Now</a>
+    <button class="hamburger" id="hamburger" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobile navigation" aria-hidden="true">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close mobile menu">&times;</button>
+  <ul class="mobile-nav-list" role="list">
+    <li><a href="#home" class="mobile-nav-link">Home</a></li>
+    <li><a href="#about" class="mobile-nav-link">About</a></li>
+    <li><a href="#services" class="mobile-nav-link">Services</a></li>
+    <li><a href="#gallery" class="mobile-nav-link">Gallery</a></li>
+    <li><a href="#testimonials" class="mobile-nav-link">Testimonials</a></li>
+    <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+  </ul>
+  <a href="https://wa.me/919025408659" class="btn btn-primary mobile-cta" target="_blank" rel="noopener">Book Appointment</a>
+</div>
+<div class="mobile-menu-overlay" id="mobile-menu-overlay" aria-hidden="true"></div>
+
+<main>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home" aria-label="Hero section">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <div class="hero-content fade-in">
+      <div class="hero-badge">&#10024; Premium Dental &amp; Aesthetic Care</div>
+      <h1 class="hero-title">
+        <span class="hero-title-accent">Transforming</span> Smiles,<br/>Elevating Lives
+      </h1>
+      <p class="hero-sub">Experience world-class dental care with Dr. Mohammed Farooq Mustafa. From smile designing to dental implants &mdash; your dream smile is just one appointment away.</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/919025408659" class="btn btn-primary btn-lg" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.117 1.526 5.845L0 24l6.334-1.508A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.92 0-3.725-.5-5.293-1.376l-.379-.224-3.93.936.975-3.826-.248-.394A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Book Appointment
+        </a>
+        <a href="tel:+919025408659" class="btn btn-outline btn-lg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Call Us
+        </a>
+      </div>
+    </div>
+    <div class="hero-illustration fade-in-right">
+      <div class="hero-3d-tooth">
+        <svg viewBox="0 0 200 240" class="tooth-3d-svg" aria-hidden="true">
+          <defs>
+            <radialGradient id="toothGrad3d" cx="35%" cy="28%" r="65%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="30%" stop-color="#eef6fc"/>
+              <stop offset="70%" stop-color="#cce4f7"/>
+              <stop offset="100%" stop-color="#a8ceec"/>
+            </radialGradient>
+            <radialGradient id="toothShadow3d" cx="50%" cy="60%" r="55%">
+              <stop offset="0%" stop-color="rgba(0,119,204,0.35)"/>
+              <stop offset="100%" stop-color="rgba(0,119,204,0)"/>
+            </radialGradient>
+            <radialGradient id="rootGrad" cx="30%" cy="20%" r="80%">
+              <stop offset="0%" stop-color="#ddeeff"/>
+              <stop offset="100%" stop-color="#b8d4f0"/>
+            </radialGradient>
+            <filter id="toothGlow3d" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+            </filter>
+            <filter id="shadowFilter" x="-10%" y="-10%" width="130%" height="130%">
+              <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="rgba(0,100,200,0.3)"/>
+            </filter>
+            <linearGradient id="tealAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#00C9A7"/>
+              <stop offset="100%" stop-color="#0077CC"/>
+            </linearGradient>
+          </defs>
+          <!-- Outer glow ellipse -->
+          <ellipse cx="100" cy="125" rx="88" ry="108" fill="url(#toothShadow3d)" opacity="0.6"/>
+          <!-- Main tooth crown shape -->
+          <path d="M100 12 C72 12 48 32 38 62 C28 92 33 124 43 148 C52 168 57 188 100 188 C143 188 148 168 157 148 C167 124 172 92 162 62 C152 32 128 12 100 12Z" fill="url(#toothGrad3d)" filter="url(#shadowFilter)"/>
+          <!-- Side shading for 3D depth -->
+          <path d="M38 62 C28 92 33 124 43 148 C50 165 55 180 70 186" fill="none" stroke="rgba(100,160,220,0.25)" stroke-width="18" stroke-linecap="round"/>
+          <!-- Tooth roots -->
+          <path d="M76 186 L66 222 Q71 228 77 222 L82 196" fill="url(#rootGrad)" opacity="0.95"/>
+          <path d="M100 187 L98 228 Q101 231 104 228 L104 187" fill="url(#rootGrad)" opacity="0.95"/>
+          <path d="M124 186 L130 222 Q125 228 121 222 L118 196" fill="url(#rootGrad)" opacity="0.95"/>
+          <!-- Root shadows -->
+          <path d="M76 195 L68 220" stroke="rgba(100,150,210,0.3)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M100 195 L100 226" stroke="rgba(100,150,210,0.3)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M124 195 L128 220" stroke="rgba(100,150,210,0.3)" stroke-width="3" stroke-linecap="round"/>
+          <!-- Primary highlight shine (large) -->
+          <ellipse cx="76" cy="68" rx="20" ry="32" fill="white" opacity="0.55" transform="rotate(-18 76 68)"/>
+          <!-- Secondary highlight (small bright) -->
+          <ellipse cx="69" cy="56" rx="9" ry="16" fill="white" opacity="0.82" transform="rotate(-18 69 56)"/>
+          <!-- Subtle highlight right side -->
+          <ellipse cx="130" cy="80" rx="8" ry="14" fill="white" opacity="0.22" transform="rotate(12 130 80)"/>
+          <!-- Teal accent line at crown base -->
+          <path d="M56 172 Q100 184 144 172" stroke="url(#tealAccent)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <!-- Subtle crown detail lines -->
+          <path d="M68 145 Q100 152 132 145" stroke="rgba(100,150,200,0.2)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <!-- Floating sparkles -->
+        <div class="sparkle s1" aria-hidden="true">&#10022;</div>
+        <div class="sparkle s2" aria-hidden="true">&#10022;</div>
+        <div class="sparkle s3" aria-hidden="true">&#10022;</div>
+        <div class="sparkle s4" aria-hidden="true">&#9670;</div>
+        <!-- Orbiting teal ring -->
+        <div class="tooth-ring" aria-hidden="true"></div>
+        <div class="tooth-ring tooth-ring-2" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,40 C360,80 1080,0 1440,40 L1440,60 L0,60 Z" fill="#ffffff"/>
+    </svg>
+  </div>
+</section>
