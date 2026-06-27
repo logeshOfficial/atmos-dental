@@ -184,14 +184,22 @@ input, textarea { font-family: inherit; }
   gap: .6rem;
   flex-shrink: 0;
 }
-.logo-icon { flex-shrink: 0; }
-.logo-text {
-  font-family: var(--font-head);
-  font-size: 1.25rem;
-  color: var(--dark);
-  letter-spacing: -.01em;
+.logo-img-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
-.logo-text strong { color: var(--blue); font-weight: 700; }
+.logo-img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(0,201,167,.3));
+  transition: filter var(--transition), transform var(--transition);
+}
+.logo:hover .logo-img {
+  filter: drop-shadow(0 0 14px rgba(0,201,167,.55)) drop-shadow(0 0 4px rgba(0,119,204,.4));
+  transform: scale(1.03);
+}
 
 .main-nav { margin-left: auto; }
 .nav-list { display: flex; gap: .25rem; }
@@ -357,15 +365,29 @@ input, textarea { font-family: inherit; }
   justify-content: center;
   align-items: center;
 }
-.tooth-svg {
+.tooth-3d-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tooth-3d-img {
   width: 100%;
-  max-width: 360px;
-  filter: drop-shadow(0 20px 40px rgba(0,0,0,.2));
+  max-width: 500px;
+  height: auto;
+  filter: drop-shadow(0 20px 60px rgba(0,201,167,.35)) drop-shadow(0 0 30px rgba(0,119,204,.25));
   animation: float 4s ease-in-out infinite;
+}
+.tooth-3d-glow {
+  display: none;
 }
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-14px); }
+}
+@keyframes pulse-glow {
+  0%   { opacity: .5; transform: scale(.95); }
+  100% { opacity: 1;  transform: scale(1.05); }
 }
 
 .hero-wave {
@@ -879,6 +901,16 @@ input, textarea { font-family: inherit; }
   margin-bottom: 1rem;
 }
 .footer-logo strong { color: var(--teal); }
+.footer-logo-img {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 6px rgba(0,201,167,.4));
+  transition: filter var(--transition);
+}
+.footer-logo:hover .footer-logo-img {
+  filter: drop-shadow(0 0 12px rgba(0,201,167,.7));
+}
 
 .footer-tagline { font-size: .88rem; line-height: 1.65; max-width: 280px; }
 
@@ -944,7 +976,7 @@ input, textarea { font-family: inherit; }
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; text-align: center; padding-block: 4rem; }
   .hero-illustration { order: -1; }
-  .tooth-svg { max-width: 220px; }
+  .tooth-3d-img { max-width: 320px; }
   .hero-sub { margin-inline: auto; }
   .hero-actions { justify-content: center; }
 
