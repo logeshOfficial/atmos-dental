@@ -373,19 +373,13 @@ input, textarea { font-family: inherit; }
 }
 .tooth-3d-img {
   width: 100%;
-  max-width: 420px;
+  max-width: 500px;
   height: auto;
-  border-radius: 50%;
   filter: drop-shadow(0 20px 60px rgba(0,201,167,.35)) drop-shadow(0 0 30px rgba(0,119,204,.25));
   animation: float 4s ease-in-out infinite;
 }
 .tooth-3d-glow {
-  position: absolute;
-  inset: 10%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,201,167,.2) 0%, transparent 70%);
-  z-index: -1;
-  animation: pulse-glow 3s ease-in-out infinite alternate;
+  display: none;
 }
 @keyframes float {
   0%, 100% { transform: translateY(0); }
@@ -982,7 +976,7 @@ input, textarea { font-family: inherit; }
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; text-align: center; padding-block: 4rem; }
   .hero-illustration { order: -1; }
-  .tooth-3d-img { max-width: 260px; }
+  .tooth-3d-img { max-width: 320px; }
   .hero-sub { margin-inline: auto; }
   .hero-actions { justify-content: center; }
 
