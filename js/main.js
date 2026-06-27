@@ -330,35 +330,76 @@
   var success = document.getElementById('form-success');
   if (!form || !success) return;
 
+  var PHONE_RE = /^\+?[\d\s\-()]{7,15}$/;
+  var MAX_NAME_LEN = 100;
+  var MAX_PHONE_LEN = 20;
+  var MAX_MSG_LEN = 2000;
+
+  function sanitize(str) {
+    var el = document.createElement('div');
+    el.appendChild(document.createTextNode(str));
+    return el.innerHTML;
+  }
+
+  function markInvalid(field, msg) {
+    field.style.borderColor = '#CC2200';
+    field.setAttribute('aria-invalid', 'true');
+    field.setAttribute('title', msg);
+    field.addEventListener('input', function() {
+      field.style.borderColor = '';
+      field.removeAttribute('aria-invalid');
+      field.removeAttribute('title');
+    }, { once: true });
+  }
+
   form.addEventListener('submit', function(e) {
     e.preventDefault();
 
-    // Basic validation
-    var name  = form.querySelector('#form-name').value.trim();
-    var phone = form.querySelector('#form-phone').value.trim();
-    var msg   = form.querySelector('#form-message').value.trim();
+    var nameEl  = form.querySelector('#form-name');
+    var phoneEl = form.querySelector('#form-phone');
+    var emailEl = form.querySelector('#form-email');
+    var msgEl   = form.querySelector('#form-message');
 
-    if (!name || !phone || !msg) {
-      // Highlight empty required fields
-      [
-        { el: form.querySelector('#form-name'),    val: name  },
-        { el: form.querySelector('#form-phone'),   val: phone },
-        { el: form.querySelector('#form-message'), val: msg   }
-      ].forEach(function(field) {
-        if (!field.val) {
-          field.el.style.borderColor = '#CC2200';
-          field.el.addEventListener('input', function() {
-            field.el.style.borderColor = '';
-          }, { once: true });
-        }
-      });
-      return;
+    var name  = nameEl.value.trim().slice(0, MAX_NAME_LEN);
+    var phone = phoneEl.value.trim().slice(0, MAX_PHONE_LEN);
+    var email = emailEl.value.trim();
+    var msg   = msgEl.value.trim().slice(0, MAX_MSG_LEN);
+
+    var valid = true;
+
+    if (!name) {
+      markInvalid(nameEl, 'Name is required');
+      valid = false;
     }
 
-    // Simulate async submission
+    if (!phone) {
+      markInvalid(phoneEl, 'Phone number is required');
+      valid = false;
+    } else if (!PHONE_RE.test(phone)) {
+      markInvalid(phoneEl, 'Enter a valid phone number');
+      valid = false;
+    }
+
+    if (email && !emailEl.validity.valid) {
+      markInvalid(emailEl, 'Enter a valid email address');
+      valid = false;
+    }
+
+    if (!msg) {
+      markInvalid(msgEl, 'Message is required');
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    var sanitizedName  = sanitize(name);
+    var sanitizedPhone = sanitize(phone);
+    var sanitizedEmail = sanitize(email);
+    var sanitizedMsg   = sanitize(msg);
+
     var submitBtn = form.querySelector('button[type="submit"]');
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending…';
+    submitBtn.textContent = 'Sending\u2026';
 
     setTimeout(function() {
       form.reset();
@@ -367,7 +408,6 @@
       submitBtn.disabled = false;
       submitBtn.textContent = 'Send Message';
 
-      // Hide success message after 6 s
       setTimeout(function() {
         success.classList.remove('visible');
         success.setAttribute('aria-hidden', 'true');
