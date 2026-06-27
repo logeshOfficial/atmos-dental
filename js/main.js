@@ -18,110 +18,139 @@
    1. STICKY HEADER – add shadow when page is scrolled
    ============================================================ */
 (function initStickyHeader() {
-  const header = document.getElementById('site-header');
-  if (!header) return;
+  try {
+    const header = document.getElementById('site-header');
+    if (!header) {
+      console.warn('[Atmos] #site-header not found – sticky header disabled.');
+      return;
+    }
 
-  function onScroll() {
-    header.classList.toggle('scrolled', window.scrollY > 10);
+    function onScroll() {
+      header.classList.toggle('scrolled', window.scrollY > 10);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // run once on load
+  } catch (err) {
+    console.error('[Atmos] Sticky header init failed:', err);
   }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll(); // run once on load
 }());
 
 /* ============================================================
    2. MOBILE HAMBURGER MENU
    ============================================================ */
 (function initMobileMenu() {
-  const hamburger = document.getElementById('hamburger');
-  const menu      = document.getElementById('mobile-menu');
-  const overlay   = document.getElementById('mobile-menu-overlay');
-  const closeBtn  = document.getElementById('mobile-menu-close');
-  const mobileLinks = document.querySelectorAll('.mobile-nav-link, .mobile-cta');
+  try {
+    const hamburger = document.getElementById('hamburger');
+    const menu      = document.getElementById('mobile-menu');
+    const overlay   = document.getElementById('mobile-menu-overlay');
+    const closeBtn  = document.getElementById('mobile-menu-close');
+    const mobileLinks = document.querySelectorAll('.mobile-nav-link, .mobile-cta');
 
-  if (!hamburger || !menu) return;
+    if (!hamburger || !menu) {
+      console.warn('[Atmos] #hamburger or #mobile-menu not found – mobile menu disabled.');
+      return;
+    }
 
-  function openMenu() {
-    menu.classList.add('open');
-    overlay.classList.add('visible');
-    hamburger.classList.add('open');
-    hamburger.setAttribute('aria-expanded', 'true');
-    menu.setAttribute('aria-hidden', 'false');
-    overlay.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
+    if (!overlay)  console.warn('[Atmos] #mobile-menu-overlay not found – overlay behaviour disabled.');
+    if (!closeBtn) console.warn('[Atmos] #mobile-menu-close not found – close button disabled.');
+
+    function openMenu() {
+      menu.classList.add('open');
+      if (overlay) {
+        overlay.classList.add('visible');
+        overlay.setAttribute('aria-hidden', 'false');
+      }
+      hamburger.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      menu.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      menu.classList.remove('open');
+      if (overlay) {
+        overlay.classList.remove('visible');
+        overlay.setAttribute('aria-hidden', 'true');
+      }
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', openMenu);
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    if (overlay)  overlay.addEventListener('click', closeMenu);
+
+    mobileLinks.forEach(function(link) {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && menu.classList.contains('open')) closeMenu();
+    });
+  } catch (err) {
+    console.error('[Atmos] Mobile menu init failed:', err);
   }
-
-  function closeMenu() {
-    menu.classList.remove('open');
-    overlay.classList.remove('visible');
-    hamburger.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
-    menu.setAttribute('aria-hidden', 'true');
-    overlay.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  }
-
-  hamburger.addEventListener('click', openMenu);
-  closeBtn.addEventListener('click', closeMenu);
-  overlay.addEventListener('click', closeMenu);
-
-  mobileLinks.forEach(function(link) {
-    link.addEventListener('click', closeMenu);
-  });
-
-  // Close on Escape key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && menu.classList.contains('open')) closeMenu();
-  });
 }());
 
 /* ============================================================
    3. SCROLLSPY – highlight active nav link
    ============================================================ */
 (function initScrollSpy() {
-  const sections = document.querySelectorAll('section[id], div[id="home"]');
-  const navLinks = document.querySelectorAll('.nav-link');
-  if (!navLinks.length) return;
+  try {
+    const sections = document.querySelectorAll('section[id], div[id="home"]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    if (!navLinks.length) return;
 
-  var headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72;
+    var headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72;
 
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        var id = entry.target.getAttribute('id');
-        navLinks.forEach(function(link) {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === '#' + id) {
-            link.classList.add('active');
-          }
-        });
-      }
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.getAttribute('id');
+          navLinks.forEach(function(link) {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + id) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, {
+      rootMargin: '-' + headerH + 'px 0px -55% 0px',
+      threshold: 0
     });
-  }, {
-    rootMargin: '-' + headerH + 'px 0px -55% 0px',
-    threshold: 0
-  });
 
-  sections.forEach(function(section) { observer.observe(section); });
+    sections.forEach(function(section) { observer.observe(section); });
+  } catch (err) {
+    console.error('[Atmos] ScrollSpy init failed:', err);
+  }
 }());
 
 /* ============================================================
    4. FADE-IN ON SCROLL – Intersection Observer
    ============================================================ */
 (function initFadeIn() {
-  var elements = document.querySelectorAll('.fade-in, .fade-in-right');
-  if (!elements.length) return;
+  try {
+    var elements = document.querySelectorAll('.fade-in, .fade-in-right');
+    if (!elements.length) return;
 
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
 
-  elements.forEach(function(el) { observer.observe(el); });
+    elements.forEach(function(el) { observer.observe(el); });
+  } catch (err) {
+    console.error('[Atmos] Fade-in init failed:', err);
+  }
 }());
 
 /* ============================================================
@@ -131,14 +160,23 @@
       - Prev / Next buttons + dots
    ============================================================ */
 (function initCarousel() {
+  try {
   var track   = document.getElementById('carousel-track');
   var prevBtn = document.getElementById('carousel-prev');
   var nextBtn = document.getElementById('carousel-next');
   var dotsWrap = document.getElementById('carousel-dots');
-  if (!track || !prevBtn) return;
+  if (!track || !prevBtn || !nextBtn) {
+    console.warn('[Atmos] Carousel elements missing (track/prev/next) – carousel disabled.');
+    return;
+  }
+  if (!dotsWrap) console.warn('[Atmos] #carousel-dots not found – dot navigation disabled.');
 
   var cards = Array.from(track.querySelectorAll('.testimonial-card'));
   var total = cards.length;
+  if (total === 0) {
+    console.warn('[Atmos] No .testimonial-card elements found – carousel disabled.');
+    return;
+  }
   var current = 0;
   var autoTimer = null;
   var INTERVAL = 4000;
@@ -153,6 +191,7 @@
 
   /* ----- Build dots ----- */
   function buildDots() {
+    if (!dotsWrap) return;
     dotsWrap.innerHTML = '';
     var visible = getVisible();
     var dotCount = Math.ceil(total / visible);
@@ -173,6 +212,7 @@
 
   /* ----- Update dots ----- */
   function updateDots() {
+    if (!dotsWrap) return;
     var visible = getVisible();
     var activeDot = Math.floor(current / visible);
     var dots = dotsWrap.querySelectorAll('.carousel-dot');
@@ -234,10 +274,14 @@
 
   /* ----- Pause on hover / focus ----- */
   var wrap = track.closest('.carousel-wrap');
-  wrap.addEventListener('mouseenter', stopAuto);
-  wrap.addEventListener('mouseleave', startAuto);
-  wrap.addEventListener('focusin',   stopAuto);
-  wrap.addEventListener('focusout',  startAuto);
+  if (wrap) {
+    wrap.addEventListener('mouseenter', stopAuto);
+    wrap.addEventListener('mouseleave', startAuto);
+    wrap.addEventListener('focusin',   stopAuto);
+    wrap.addEventListener('focusout',  startAuto);
+  } else {
+    console.warn('[Atmos] .carousel-wrap not found – hover-pause disabled.');
+  }
 
   /* ----- Touch/swipe support ----- */
   var touchStartX = 0;
@@ -266,112 +310,162 @@
   buildDots();
   goTo(0);
   startAuto();
+  } catch (err) {
+    console.error('[Atmos] Carousel init failed:', err);
+  }
 }());
 
 /* ============================================================
    6. GALLERY LIGHTBOX
    ============================================================ */
 (function initLightbox() {
-  var lightbox   = document.getElementById('lightbox');
-  var lbOverlay  = document.getElementById('lightbox-overlay');
-  var lbClose    = document.getElementById('lightbox-close');
-  var lbPlaceholder = document.getElementById('lightbox-placeholder');
-  var lbCaption  = document.getElementById('lightbox-caption');
-  var galleryItems = document.querySelectorAll('.gallery-item');
+  try {
+    var lightbox   = document.getElementById('lightbox');
+    var lbOverlay  = document.getElementById('lightbox-overlay');
+    var lbClose    = document.getElementById('lightbox-close');
+    var lbPlaceholder = document.getElementById('lightbox-placeholder');
+    var lbCaption  = document.getElementById('lightbox-caption');
+    var galleryItems = document.querySelectorAll('.gallery-item');
 
-  if (!lightbox || !galleryItems.length) return;
+    if (!lightbox || !galleryItems.length) {
+      console.warn('[Atmos] #lightbox or .gallery-item elements not found – lightbox disabled.');
+      return;
+    }
 
-  function openLightbox(item) {
-    var label = item.dataset.label || '';
-    var bg    = item.querySelector('.gallery-bg');
-    var bgStyle = bg ? bg.style.background : 'linear-gradient(135deg,#0077CC,#00C9A7)';
+    if (!lbOverlay)     console.warn('[Atmos] #lightbox-overlay not found – overlay behaviour disabled.');
+    if (!lbClose)       console.warn('[Atmos] #lightbox-close not found – close button disabled.');
+    if (!lbPlaceholder) console.warn('[Atmos] #lightbox-placeholder not found – preview background disabled.');
+    if (!lbCaption)     console.warn('[Atmos] #lightbox-caption not found – captions disabled.');
 
-    lbPlaceholder.style.background = bgStyle;
-    lbCaption.textContent = label;
+    function openLightbox(item) {
+      var label = item.dataset.label || '';
+      var bg    = item.querySelector('.gallery-bg');
+      var bgStyle = bg ? bg.style.background : 'linear-gradient(135deg,#0077CC,#00C9A7)';
 
-    lightbox.setAttribute('aria-hidden', 'false');
-    lbOverlay.setAttribute('aria-hidden', 'false');
-    lightbox.classList.add('visible');
-    lbOverlay.classList.add('visible');
-    document.body.style.overflow = 'hidden';
-    lbClose.focus();
-  }
+      if (lbPlaceholder) lbPlaceholder.style.background = bgStyle;
+      if (lbCaption) lbCaption.textContent = label;
 
-  function closeLightbox() {
-    lightbox.setAttribute('aria-hidden', 'true');
-    lbOverlay.setAttribute('aria-hidden', 'true');
-    lightbox.classList.remove('visible');
-    lbOverlay.classList.remove('visible');
-    document.body.style.overflow = '';
-  }
-
-  galleryItems.forEach(function(item) {
-    item.addEventListener('click', function() { openLightbox(item); });
-    item.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openLightbox(item);
+      lightbox.setAttribute('aria-hidden', 'false');
+      lightbox.classList.add('visible');
+      if (lbOverlay) {
+        lbOverlay.setAttribute('aria-hidden', 'false');
+        lbOverlay.classList.add('visible');
       }
-    });
-  });
+      document.body.style.overflow = 'hidden';
+      if (lbClose) lbClose.focus();
+    }
 
-  lbClose.addEventListener('click', closeLightbox);
-  lbOverlay.addEventListener('click', closeLightbox);
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && lightbox.classList.contains('visible')) closeLightbox();
-  });
+    function closeLightbox() {
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightbox.classList.remove('visible');
+      if (lbOverlay) {
+        lbOverlay.setAttribute('aria-hidden', 'true');
+        lbOverlay.classList.remove('visible');
+      }
+      document.body.style.overflow = '';
+    }
+
+    galleryItems.forEach(function(item) {
+      item.addEventListener('click', function() { openLightbox(item); });
+      item.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLightbox(item);
+        }
+      });
+    });
+
+    if (lbClose)   lbClose.addEventListener('click', closeLightbox);
+    if (lbOverlay) lbOverlay.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('visible')) closeLightbox();
+    });
+  } catch (err) {
+    console.error('[Atmos] Lightbox init failed:', err);
+  }
 }());
 
 /* ============================================================
    7. CONTACT FORM – show success message on submit
    ============================================================ */
 (function initContactForm() {
-  var form    = document.getElementById('contact-form');
-  var success = document.getElementById('form-success');
-  if (!form || !success) return;
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    // Basic validation
-    var name  = form.querySelector('#form-name').value.trim();
-    var phone = form.querySelector('#form-phone').value.trim();
-    var msg   = form.querySelector('#form-message').value.trim();
-
-    if (!name || !phone || !msg) {
-      // Highlight empty required fields
-      [
-        { el: form.querySelector('#form-name'),    val: name  },
-        { el: form.querySelector('#form-phone'),   val: phone },
-        { el: form.querySelector('#form-message'), val: msg   }
-      ].forEach(function(field) {
-        if (!field.val) {
-          field.el.style.borderColor = '#CC2200';
-          field.el.addEventListener('input', function() {
-            field.el.style.borderColor = '';
-          }, { once: true });
-        }
-      });
+  try {
+    var form    = document.getElementById('contact-form');
+    var success = document.getElementById('form-success');
+    if (!form || !success) {
+      console.warn('[Atmos] #contact-form or #form-success not found – contact form disabled.');
       return;
     }
 
-    // Simulate async submission
+    var nameEl  = form.querySelector('#form-name');
+    var phoneEl = form.querySelector('#form-phone');
+    var msgEl   = form.querySelector('#form-message');
     var submitBtn = form.querySelector('button[type="submit"]');
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending…';
 
-    setTimeout(function() {
-      form.reset();
-      success.classList.add('visible');
-      success.setAttribute('aria-hidden', 'false');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Send Message';
+    if (!nameEl || !phoneEl || !msgEl) {
+      console.error('[Atmos] Required form fields (#form-name, #form-phone, #form-message) missing – contact form disabled.');
+      return;
+    }
+    if (!submitBtn) {
+      console.warn('[Atmos] Submit button not found – form submission may not work correctly.');
+    }
 
-      // Hide success message after 6 s
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Basic validation
+      var name  = nameEl.value.trim();
+      var phone = phoneEl.value.trim();
+      var msg   = msgEl.value.trim();
+
+      if (!name || !phone || !msg) {
+        // Highlight empty required fields
+        [
+          { el: nameEl,  val: name  },
+          { el: phoneEl, val: phone },
+          { el: msgEl,   val: msg   }
+        ].forEach(function(field) {
+          if (!field.val) {
+            field.el.style.borderColor = '#CC2200';
+            field.el.addEventListener('input', function() {
+              field.el.style.borderColor = '';
+            }, { once: true });
+          }
+        });
+        return;
+      }
+
+      // Simulate async submission
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending\u2026';
+      }
+
       setTimeout(function() {
-        success.classList.remove('visible');
-        success.setAttribute('aria-hidden', 'true');
-      }, 6000);
-    }, 900);
-  });
+        try {
+          form.reset();
+          success.classList.add('visible');
+          success.setAttribute('aria-hidden', 'false');
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+          }
+
+          // Hide success message after 6 s
+          setTimeout(function() {
+            success.classList.remove('visible');
+            success.setAttribute('aria-hidden', 'true');
+          }, 6000);
+        } catch (submitErr) {
+          console.error('[Atmos] Error during form submission callback:', submitErr);
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+          }
+        }
+      }, 900);
+    });
+  } catch (err) {
+    console.error('[Atmos] Contact form init failed:', err);
+  }
 }());
